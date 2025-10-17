@@ -10,15 +10,22 @@ SRC = sources/main.c \
       sources/utils.c \
       sources/validate_map.c \
       sources/validate_map2.c \
-      sources/validate_map3.c
+      sources/validate_map3.c \
+      sources/mlx1.c\
+      sources/hooks.c\
+	  sources/button.c\
+      sources/graphics.c\
+      get_next_line/get_next_line_bonus.c \
+      get_next_line/get_next_line_utils_bonus.c
 
 
 OBJ = $(SRC:.c=.o)
 
 LIBFT = libft/libft.a
-GNL = get_next_line/get_next_line.a
 
-MLX_FLAGS = -Lminilibx-linux -lXext -lX11 -lm
+PRINTF = ft_printf/ft_printf.a
+
+MLX_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
 
 # --- ルール定義 ---
@@ -28,28 +35,27 @@ all: $(NAME)
 
 # 実行ファイルを作成するルール
 # $(OBJ)と各ライブラリをリンクし、MiniLibXのフラグも追加する
-$(NAME): $(OBJ) $(LIBFT) $(GNL)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(GNL) $(MLX_FLAGS)
+$(NAME): $(OBJ) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(PRINTF) $(MLX_FLAGS)
 
 # libft.a を作成するルール
 $(LIBFT):
-	make -C libft
+	make bonus -C libft
 
-# get_next_line.a を作成するルール
-$(GNL):
-	make -C get_next_line
+$(PRINTF):
+	make -C ft_printf
 
 # オブジェクトファイルを削除するルール
 clean:
 	rm -f $(OBJ)
 	make -C libft clean
-	make -C get_next_line clean
+	make -C ft_printf clean
 
 # オブジェクトファイルと実行ファイルを削除するルール
 fclean: clean
 	rm -f $(NAME)
 	make -C libft fclean
-	make -C get_next_line fclean
+	make -C ft_printf fclean
 
 # 全てクリーンにしてから再コンパイルするルール
 re: fclean all

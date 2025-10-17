@@ -27,7 +27,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (*ss1 - *ss2);
 }
 
-int free_array_and_return(char **array)
+char **free_array_and_return(char **array)
 {
     int i;
 

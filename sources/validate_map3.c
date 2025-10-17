@@ -6,7 +6,7 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:04:13 by gen               #+#    #+#             */
-/*   Updated: 2025/10/11 17:05:16 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/15 16:58:13 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int start_validation(int argc, char **argv, t_game *game)
     if (!check_argv(argc, argv))
         return (0);
     init_game_struct(game);
-    head = read_map(argv[1]);
+    head = read_map(argv);
     if (head == NULL)
         return (0);
     game->map = list_to_array(head);
@@ -78,9 +78,15 @@ int start_validation(int argc, char **argv, t_game *game)
     if (game->map == NULL)
         return (0);
     if (!validate_static_map(game))
+	{
+		printf("validete_static");
         return (0);
+	}
     if (!validate_path(game))
+	{
+		printf("validate_path");
         return (0);
+	}
     return (1);
 }
 

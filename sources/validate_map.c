@@ -24,11 +24,29 @@ int	check_argv(int argc, char **argv)
 	return (1);
 }
 
+int	line_to_list(char *line, t_list **head)
+{
+	t_list	*next_node;
+	char	*trimmed_line;
+
+	trimmed_line = ft_strtrim(line, "\n");
+	free(line);
+	if (trimmed_line == NULL)
+		return (0);
+	next_node = ft_lstnew(trimmed_line);
+	if (next_node == NULL)
+	{
+		free(trimmed_line);
+		return (0);
+	}
+	ft_lstadd_back(head, next_node);
+	return (1);
+}
+
 t_list	*read_map(char **argv)
 {
 	int		fd;
 	char	*line;
-	t_list	*next_node;
 	t_list	*head;
 
 	fd = open(argv[1], O_RDONLY);
@@ -38,15 +56,12 @@ t_list	*read_map(char **argv)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		next_node = ft_lstnew(line);
-		if (next_node == NULL)
+		if (!line_to_list(line, &head))
 		{
-			free(line);
 			ft_lstclear(&head, free);
 			close(fd);
 			return (NULL);
 		}
-		ft_lstadd_back(&head, next_node);
 		line = get_next_line(fd);
 	}
 	close(fd);
@@ -62,7 +77,7 @@ char	**list_to_array(t_list *head)
 
 	if (head == NULL)
 		return (NULL);
-	lst_size = ft_lst_size(head);
+	lst_size = ft_lstsize(head);
 	array = malloc(sizeof(char *) * (lst_size + 1));
 	if (array == NULL)
 		return (NULL);
@@ -72,7 +87,7 @@ char	**list_to_array(t_list *head)
 	{
 		array[i] = ft_strdup((char *)current->content);
 		if (array[i] == NULL)
-			return(free_array_return(array));
+			return(free_array_and_return(array));
 		i++;
 		current = current->next;
 	}
@@ -91,7 +106,7 @@ int	val_rectangular(t_game *game)
 	y = 0;
 	while (game->map[y])
 	{
-		if (ft_strlen(game->map[y]) != first_row_width)
+		if ((int)ft_strlen(game->map[y]) != first_row_width)
 			return (0);
 		y++;
 	}
@@ -124,6 +139,44 @@ int	val_wall(t_game *game)
 	}
 	return (1);
 }
+
+//t_list	*read_map(char **argv)
+//{
+//	int		fd;
+//	char	*line;
+//	t_list	*next_node;
+//	t_list	*head;
+//	char	*trimmed_line;
+
+//	fd = open(argv[1], O_RDONLY);
+//	if (fd < 0)
+//		return (NULL);
+//	head = NULL;
+//	line = get_next_line(fd);
+//	while (line != NULL)
+//	{
+//		trimmed_line = ft_strtrim(line, "\n");
+//		free(line);
+//		if (trimmed_line == NULL)
+//		{
+//			ft_lstclear(&head, free);
+//			close(fd);
+//			return (NULL);
+//		}
+//		next_node = ft_lstnew(trimmed_line);
+//		if (next_node == NULL)
+//		{
+//			free(trimmed_line);
+//			ft_lstclear(&head, free);
+//			close(fd);
+//			return (NULL);
+//		}
+//		ft_lstadd_back(&head, next_node);
+//		line = get_next_line(fd);
+//	}
+//	close(fd);
+//	return (head);
+//}
 
 //void	find_start(char **map_copy, t_game *game)
 //{

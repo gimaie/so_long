@@ -6,7 +6,7 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:03:45 by gen               #+#    #+#             */
-/*   Updated: 2025/10/11 16:59:33 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/11 18:02:37 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**copy_map(t_game *game)
 	{
 		copied_map[i] = ft_strdup(game->map[i]);
 		if (copied_map[i] == NULL)
-			return (free_array_(copied_map));
+			return (free_array_and_return(copied_map));
 		i++;
 	}
 	copied_map[i] = NULL;

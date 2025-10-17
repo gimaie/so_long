@@ -6,13 +6,11 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:17:22 by gen               #+#    #+#             */
-/*   Updated: 2025/10/11 17:04:40 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/17 11:53:32 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-#include "./minilibx-linux/mlx.h"
-#include "./minilibx-linux/mlx_int.h"
 
 int main(int argc, char **argv)
 {
@@ -21,18 +19,30 @@ int main(int argc, char **argv)
     if (start_validation(argc, argv, &game) == 1)
     {
         // 検証成功！
-        ft_printf("Success! Map is valid.\n");
+        printf("Success! Map is valid.\n");
 
         // --- ここからグラフィック処理が始まる ---
-        // init_mlx(&game);
-        // render_game(&game);
-        // mlx_loop(game.mlx);
-        // ------------------------------------
+        if (init_mlx(&game) == 1)
+        {
+            if (load_textures(&game) == 0)
+			{
+				printf("Error: Failed to load textures.\n");
+				// エラー時はcleanup_gameを呼んで終了
+				cleanup_game(&game);
+				return (1);
+			}
+
+            mlx_key_hook(game.win, handle_keypress, &game);
+            mlx_hook(game.win, 17, 0, handle_close_window, &game);
+            render_map(&game);
+            mlx_loop(game.mlx);
+         }
+
     }
     else
     {
         // 検証失敗...
-        ft_printf("Error\n");
+        printf("Error\n");
     }
 
     // プログラム終了前に、確保したメモリを全てお片付け
