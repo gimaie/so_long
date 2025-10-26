@@ -6,26 +6,26 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:04:13 by gen               #+#    #+#             */
-/*   Updated: 2025/10/15 16:58:13 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/26 14:14:04 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int  validate_static_map(t_game *game)
+int	validate_static_map(t_game *game)
 {
-    if (!val_rectangular(game))
-        return (0);
-    if (!val_wall(game))
-        return (0);
-    if (!validate_components(game))
-        return (0);
-    return (1);
+	if (!val_rectangular(game))
+		return (0);
+	if (!val_wall(game))
+		return (0);
+	if (!validate_components(game))
+		return (0);
+	return (1);
 }
 
 void	free_map_copy(char **map_copy)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map_copy[i] != NULL)
@@ -63,31 +63,31 @@ void	init_game_struct(t_game *game)
 	game->moves = 0;
 }
 
-int start_validation(int argc, char **argv, t_game *game)
+int	start_validation(int argc, char **argv, t_game *game)
 {
-    t_list  *head;
+	t_list	*head;
 
-    if (!check_argv(argc, argv))
-        return (0);
-    init_game_struct(game);
-    head = read_map(argv);
-    if (head == NULL)
-        return (0);
-    game->map = list_to_array(head);
-    ft_lstclear(&head, free);
-    if (game->map == NULL)
-        return (0);
-    if (!validate_static_map(game))
+	if (!check_argv(argc, argv))
+		return (0);
+	init_game_struct(game);
+	head = read_map(argv);
+	if (head == NULL)
+		return (0);
+	game->map = list_to_array(head);
+	ft_lstclear(&head, free);
+	if (game->map == NULL)
+		return (0);
+	if (!validate_static_map(game))
 	{
 		printf("validete_static");
-        return (0);
+		return (0);
 	}
-    if (!validate_path(game))
+	if (!validate_path(game))
 	{
 		printf("validate_path");
-        return (0);
+		return (0);
 	}
-    return (1);
+	return (1);
 }
 
 //int	main(void)

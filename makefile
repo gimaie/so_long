@@ -2,7 +2,7 @@ NAME = so_long
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 
 
 SRC = sources/main.c \

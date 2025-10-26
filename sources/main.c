@@ -6,55 +6,56 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:17:22 by gen               #+#    #+#             */
-/*   Updated: 2025/10/17 11:53:32 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/26 20:35:22 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int main(int argc, char **argv)
+int	check_argv(int argc, char **argv)
 {
-    t_game  game;
+	const char	*dot;
 
-    if (start_validation(argc, argv, &game) == 1)
-    {
-        // 検証成功！
-        printf("Success! Map is valid.\n");
+	if (argc != 2)
+		return (0);
+	dot = ft_strrchr(argv[1], '.');
+	if (dot == NULL || ft_strcmp(dot, ".ber") != 0)
+		return (0);
+	return (1);
+}
 
-        // --- ここからグラフィック処理が始まる ---
-        if (init_mlx(&game) == 1)
-        {
-            if (load_textures(&game) == 0)
+int	main(int argc, char **argv)
+{
+	t_game	game;
+
+	ft_bzero(&game, sizeof(t_game));
+	if (start_validation(argc, argv, &game) == 1)
+	{
+		ft_printf("Success! Map is valid.\n");
+		if (init_mlx(&game) == 1)
+		{
+			if (load_textures(&game) == 0)
 			{
-				printf("Error: Failed to load textures.\n");
-				// エラー時はcleanup_gameを呼んで終了
+				ft_printf("Error: Failed to load textures.\n");
 				cleanup_game(&game);
 				return (1);
 			}
-
-            mlx_key_hook(game.win, handle_keypress, &game);
-            mlx_hook(game.win, 17, 0, handle_close_window, &game);
-            render_map(&game);
-            mlx_loop(game.mlx);
-         }
-
-    }
-    else
-    {
-        // 検証失敗...
-        printf("Error\n");
-    }
-
-    // プログラム終了前に、確保したメモリを全てお片付け
-    cleanup_game(&game);
-    return (0);
+			mlx_key_hook(game.win, handle_keypress, &game);
+			mlx_hook(game.win, 17, 0, handle_close_window, &game);
+			mlx_loop_hook(game.mlx, render_map, &game);
+			mlx_loop(game.mlx);
+		}
+	}
+	else
+		ft_printf("Error\n");
+	cleanup_game(&game);
+	return (0);
 }
 
 //int	main(void)
 //{
 //	void	*mlx_ptr;
 //	void	*win_ptr;
-
 
 //	mlx_ptr = mlx_init();
 //	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "mlx 42");

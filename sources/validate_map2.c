@@ -6,7 +6,7 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:03:45 by gen               #+#    #+#             */
-/*   Updated: 2025/10/11 18:02:37 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/26 14:05:11 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int	check_pec01(char c, t_counts *counts, t_game *game)
 
 int	validate_components(t_game *game)
 {
-	t_counts counts;
+	t_counts	counts;
 
 	counts.players = 0;
 	counts.exits = 0;
 	counts.collectibles = 0;
-	counts.y= 0;
+	counts.y = 0;
 	while (counts.y < game->height)
 	{
 		counts.x = 0;
@@ -91,22 +91,22 @@ void	flood_fill(t_game *game, char **map_copy, int y, int x)
 
 int	check_flood(t_game *game, char **map_copy)
 {
-	int y;
-    int x;
+	int	y;
+	int	x;
 
 	if (game == NULL || map_copy == NULL)
 		return (0);
-    y = 0;
-    while (y < game->height)
-    {
-        x = 0;
-        while (x < game->width)
-        {
-            if (map_copy[y][x] == 'C' || map_copy[y][x] == 'E')
-                return (0);
-            x++;
-        }
-        y++;
-    }
-    return (1);
+	y = 0;
+	while (y < game->height)
+	{
+		x = 0;
+		while (x < game->width)
+		{
+			if (map_copy[y][x] == 'C' || map_copy[y][x] == 'E')
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
 }

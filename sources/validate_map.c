@@ -12,18 +12,6 @@
 
 #include "../so_long.h"
 
-int	check_argv(int argc, char **argv)
-{
-	const char	*dot;
-
-	if (argc != 2)
-		return (0);
-	dot = ft_strrchr(argv[1], '.');
-	if (dot == NULL || ft_strcmp(dot, ".ber") != 0)
-		return (0);
-	return (1);
-}
-
 int	line_to_list(char *line, t_list **head)
 {
 	t_list	*next_node;
@@ -87,7 +75,7 @@ char	**list_to_array(t_list *head)
 	{
 		array[i] = ft_strdup((char *)current->content);
 		if (array[i] == NULL)
-			return(free_array_and_return(array));
+			return (free_array_and_return(array));
 		i++;
 		current = current->next;
 	}
@@ -128,7 +116,8 @@ int	val_wall(t_game *game)
 		j = 0;
 		while (j < game->width)
 		{
-			if (i == 0 || i == game->height -1 || j == 0 || j == game->width - 1)
+			if (i == 0 || i == game->height -1
+				|| j == 0 || j == game->width - 1)
 			{
 				if (game->map[i][j] != '1')
 					return (0);

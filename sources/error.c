@@ -6,15 +6,14 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:56:11 by gen               #+#    #+#             */
-/*   Updated: 2025/10/11 17:58:47 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/26 14:01:18 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void    cleanup_game(t_game *game)
+void	cleanup_game(t_game *game)
 {
-    if (game->map != NULL)
-        free_array_and_return(game->map); // free_arrayは既存の2次元配列解放関数
-    // 今後、ウィンドウやテクスチャを解放する処理をここに追加していく
+	if (game->map != NULL)
+		free_array_and_return(game->map);
 }
