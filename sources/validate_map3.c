@@ -6,7 +6,7 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:04:13 by gen               #+#    #+#             */
-/*   Updated: 2025/10/26 14:14:04 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/26 20:43:07 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ int	start_validation(int argc, char **argv, t_game *game)
 		return (0);
 	if (!validate_static_map(game))
 	{
-		printf("validete_static");
 		return (0);
 	}
 	if (!validate_path(game))
 	{
-		printf("validate_path");
 		return (0);
 	}
 	return (1);
