@@ -2,7 +2,7 @@ NAME = so_long
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 
 
 SRC = sources/main.c \
@@ -61,4 +61,4 @@ fclean: clean
 re: fclean all
 
 # 偽のターゲットを指定
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re $(LIBFT) $(PRINTF)
