@@ -61,4 +61,4 @@ fclean: clean
 re: fclean all
 
 # 偽のターゲットを指定
-.PHONY: all clean fclean re $(LIBFT) $(PRINTF)
+.PHONY: all clean fclean re 

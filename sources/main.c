@@ -6,7 +6,7 @@
 /*   By: gen <gen@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:17:22 by gen               #+#    #+#             */
-/*   Updated: 2025/10/26 20:35:22 by gen              ###   ########.fr       */
+/*   Updated: 2025/10/28 16:18:15 by gen              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ int	main(int argc, char **argv)
 	ft_bzero(&game, sizeof(t_game));
 	if (start_validation(argc, argv, &game) == 1)
 	{
-		ft_printf("Success! Map is valid.\n");
 		if (init_mlx(&game) == 1)
 		{
 			if (load_textures(&game) == 0)
 			{
-				ft_printf("Error: Failed to load textures.\n");
+				ft_printf("Error\n");
 				cleanup_game(&game);
 				return (1);
 			}
